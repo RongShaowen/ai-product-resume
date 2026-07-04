@@ -672,6 +672,23 @@
       z-index: -2;
       pointer-events: none;
     }
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .skill-chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: color-mix(in srgb, var(--accent2) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent2) 30%, transparent);
+      white-space: nowrap;
+    }
     @media (max-width: 980px) {
       .hero,
       .section-head,
@@ -861,6 +878,7 @@
               <div class="period">2017 - 2021</div>
               <h3>东北农业大学｜环境科学｜本科</h3>
               <p>SIPT 国家项目负责人，获学院创新创业先进个人，建立科研项目组织与实验验证基础。</p>
+              <div class="skill-chips"><span class="skill-chip">项目组织</span><span class="skill-chip">实验设计</span></div>
             </div>
           </div>
           <div class="timeline-item reveal">
@@ -869,6 +887,7 @@
               <div class="period">2022 - 2025</div>
               <h3>中国林业科学研究院｜木材科学与技术｜硕士</h3>
               <p>连续三年获得奖学金，聚焦竹基炭材料、水质净化、吸附-催化等方向，强化数据分析与工程验证能力。</p>
+              <div class="skill-chips"><span class="skill-chip">数据分析</span><span class="skill-chip">工程验证</span><span class="skill-chip">持续学习</span></div>
             </div>
           </div>
           <div class="timeline-item reveal">
@@ -877,6 +896,7 @@
               <div class="period">2022.05 - 2024.01</div>
               <h3>材料与中试生产实践</h3>
               <p>参与生物质成型炭、竹基炭中试生产及工艺调整，形成从实验室研究到工业化验证的落地意识。</p>
+              <div class="skill-chips"><span class="skill-chip">工艺放大</span><span class="skill-chip">工程落地</span></div>
             </div>
           </div>
           <div class="timeline-item reveal">
@@ -885,6 +905,7 @@
               <div class="period">2025.07 - 2026.04</div>
               <h3>三一重能｜产品规划与 AI 实践</h3>
               <p>参与新能源政策研究、产品规划前期调研、需求定义、PRD 输出与跨部门协同，推动 AI 工具落地。</p>
+              <div class="skill-chips"><span class="skill-chip">跨部门协同</span><span class="skill-chip">需求定义</span><span class="skill-chip">PRD 输出</span><span class="skill-chip">多任务并行</span></div>
             </div>
           </div>
           <div class="timeline-item reveal">
@@ -893,6 +914,7 @@
               <div class="period">2026.04 - 至今</div>
               <h3>客户需求洞察与销售体验</h3>
               <p>通过客户触达、需求沟通和体验式销售，补充用户决策链路、客户痛点与商业转化视角。</p>
+              <div class="skill-chips"><span class="skill-chip">客户沟通</span><span class="skill-chip">需求洞察</span><span class="skill-chip">商业转化</span></div>
             </div>
           </div>
         </div>
@@ -925,6 +947,7 @@
               <span class="tag">2025.07 - 2026.04</span>
             </div>
             <p>覆盖风机制造认知、高耗电行业与风电市场预测、能源消费预测建模、政策分析 SOP 与 AI 工作流、周报/月报/专题研究输出等六大并行工作主线。</p>
+            <div class="skill-chips"><span class="skill-chip">多任务并行</span><span class="skill-chip">跨部门协同</span><span class="skill-chip">成果量化</span></div>
             <div class="impact">合计贡献约 102+ 人日/年提效价值</div>
             <a class="btn primary" href="sany-work-summary.html">查看完整详情</a>
           </article>
@@ -937,6 +960,7 @@
               <span class="tag">PRD / Agent</span>
             </div>
             <p>面向政策信息分散、人工追踪成本高的问题，设计政策源准入、定向采集、分类研判、影响力评分与人工复核机制。</p>
+            <div class="skill-chips"><span class="skill-chip">需求定义</span><span class="skill-chip">流程设计</span><span class="skill-chip">AI 落地</span></div>
             <div class="impact">预计年节省 87 个标准工作日</div>
             <button class="btn" data-toggle-project="p1">展开项目详情</button>
             <div id="p1" class="project-detail">
@@ -959,6 +983,7 @@
               <span class="tag">Python / 数据模型</span>
             </div>
             <p>面向行业用能年度测算与多情景预测，完成数据治理、模型设计、Python 封装和可视化报表自动化。</p>
+            <div class="skill-chips"><span class="skill-chip">独立交付</span><span class="skill-chip">数据建模</span><span class="skill-chip">工具化</span></div>
             <div class="impact">年节省约 15 个标准工作日</div>
             <button class="btn" data-toggle-project="p2">展开项目详情</button>
             <div id="p2" class="project-detail">
@@ -981,6 +1006,7 @@
               <span class="tag">风电 / 产品需求</span>
             </div>
             <p>将海外政策、市场准入、竞品落地和合规边界转化为大兆瓦风电机组的产品需求提案。</p>
+            <div class="skill-chips"><span class="skill-chip">政策解读</span><span class="skill-chip">需求转化</span><span class="skill-chip">跨部门协调</span></div>
             <div class="impact">支撑整机指标与设计基准论证</div>
             <button class="btn" data-toggle-project="p3">展开项目详情</button>
             <div id="p3" class="project-detail">
@@ -1003,6 +1029,7 @@
               <span class="tag">工艺放大</span>
             </div>
             <p>基于实验室结果放大竹基生物质炭化工艺，完成接近实验室性能的中试级连续化生产验证。</p>
+            <div class="skill-chips"><span class="skill-chip">工艺放大</span><span class="skill-chip">工程验证</span><span class="skill-chip">产业化意识</span></div>
             <div class="impact">体现工程验证与产业落地意识</div>
           </article>
 
@@ -1014,6 +1041,7 @@
               <span class="tag">复杂系统验证</span>
             </div>
             <p>制备可高效吸附、降解水中 SMX 的炭基光催化剂，并通过循环模拟验证稳定性与选择性。</p>
+            <div class="skill-chips"><span class="skill-chip">实验设计</span><span class="skill-chip">指标评价</span><span class="skill-chip">复杂系统分析</span></div>
             <div class="impact">体现实验设计、指标评价与机理分析</div>
           </article>
 
@@ -1025,6 +1053,7 @@
               <span class="tag">项目组织</span>
             </div>
             <p>负责秸秆基生物炭、海藻酸钠-生物炭固定化菌等项目，沉淀项目拆解、实验路径设计和结果验证能力。</p>
+            <div class="skill-chips"><span class="skill-chip">项目拆解</span><span class="skill-chip">团队组织</span><span class="skill-chip">结果验证</span></div>
             <div class="impact">早期项目主导与科研组织能力</div>
           </article>
         </div>

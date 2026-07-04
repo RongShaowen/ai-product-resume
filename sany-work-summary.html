@@ -475,6 +475,23 @@
       z-index: -2;
       pointer-events: none;
     }
+    .skill-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .skill-chip {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: color-mix(in srgb, var(--accent2) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent2) 30%, transparent);
+      white-space: nowrap;
+    }
   </style>
 </head>
 <body>
@@ -566,6 +583,7 @@
                 <li>理解风力发电机从零部件加工到整机出厂的制造链路。</li>
                 <li>为后续产品规划中识别制造约束和交付风险奠定基础。</li>
               </ul>
+              <div class="skill-chips"><span class="skill-chip">一线调研</span><span class="skill-chip">工艺约束识别</span><span class="skill-chip">结构化学习</span></div>
             </div>
           </article>
           <article class="proof reveal">
@@ -577,6 +595,7 @@
                 <li>完成多情景市场容量预测与非线性拟合分析。</li>
                 <li>输出可直接用于产品规划决策的市场判断。</li>
               </ul>
+              <div class="skill-chips"><span class="skill-chip">市场分析</span><span class="skill-chip">多情景预测</span><span class="skill-chip">决策支撑</span></div>
             </div>
           </article>
           <article class="proof reveal">
@@ -588,6 +607,7 @@
                 <li>构建 1122 行增强版预测脚本，尝试 PyQt5 桌面工具封装。</li>
                 <li>完成 EDA 全链路分析，核心模型 R² 达 0.879。</li>
               </ul>
+              <div class="skill-chips"><span class="skill-chip">数据建模</span><span class="skill-chip">工具化封装</span><span class="skill-chip">独立交付</span></div>
             </div>
           </article>
           <article class="proof reveal">
@@ -599,6 +619,7 @@
                 <li>完成 SOP 从 V1 到 V5.4 共六个版本迭代，形成六页标准化分析结构。</li>
                 <li>引入归因校验和证据约束机制，提升政策研判的准确性与一致性。</li>
               </ul>
+              <div class="skill-chips"><span class="skill-chip">流程设计</span><span class="skill-chip">版本迭代</span><span class="skill-chip">质量控制</span></div>
             </div>
           </article>
           <article class="proof reveal">
@@ -610,6 +631,7 @@
                 <li>累计输出 30+ 篇周报/月报/专题研究，保持稳定的情报产出节奏。</li>
                 <li>专题覆盖面广，支撑产品规划团队的政策信息获取。</li>
               </ul>
+              <div class="skill-chips"><span class="skill-chip">持续输出</span><span class="skill-chip">情报体系</span><span class="skill-chip">跨领域覆盖</span></div>
             </div>
           </article>
         </div>
