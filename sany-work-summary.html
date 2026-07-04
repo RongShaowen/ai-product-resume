@@ -262,6 +262,150 @@
     footer { padding: 28px 0 56px; color: var(--muted); border-top: 1px solid var(--rule); }
     footer ol { padding-left: 1.2rem; font-size: .86rem; }
     footer li { margin-bottom: .5rem; word-break: break-all; }
+    .collapsible-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      margin-top: 18px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      font-weight: 700;
+      font-size: .92rem;
+      cursor: pointer;
+      transition: background .2s ease, transform .2s ease;
+    }
+    .collapsible-toggle:hover {
+      background: color-mix(in srgb, var(--accent) 20%, transparent);
+      transform: translateY(-1px);
+    }
+    .collapsible-toggle .arrow {
+      display: inline-block;
+      transition: transform .3s ease;
+      font-size: .8em;
+    }
+    .collapsible-toggle.open .arrow { transform: rotate(180deg); }
+    .collapsible-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s ease;
+    }
+    .collapsible-body.open { max-height: 8000px; }
+    .wf-diagram-wrap {
+      margin-top: 22px;
+      padding: 20px;
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      background: color-mix(in srgb, var(--bg2) 70%, transparent);
+      overflow-x: auto;
+      position: relative;
+    }
+    .wf-diagram-wrap .mermaid { min-width: 960px; }
+    .wf-diagram-wrap svg {
+      max-width: none !important;
+      width: auto !important;
+      cursor: zoom-in;
+    }
+    .wf-diagram-hint {
+      display: block;
+      margin-top: 8px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .78rem;
+    }
+    .wf-fullscreen-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(6px);
+      overflow: auto;
+      cursor: zoom-out;
+      padding: 40px;
+    }
+    .wf-fullscreen-overlay.active { display: flex; justify-content: center; align-items: flex-start; }
+    .wf-fullscreen-overlay svg {
+      max-width: none !important;
+      width: auto !important;
+      height: auto !important;
+      border: 1px solid var(--rule);
+      border-radius: 22px;
+      background: var(--bg2);
+      box-shadow: var(--shadow);
+    }
+    .wf-fullscreen-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--rule);
+      color: var(--ink);
+      background: var(--bg2);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s ease;
+    }
+    .wf-fullscreen-close:hover { background: color-mix(in srgb, var(--accent) 20%, var(--bg2)); }
+    .wf-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .wf-detail-card {
+      padding: 18px;
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--surface) 60%, transparent);
+    }
+    .wf-detail-card h4 {
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wf-detail-card ul { padding-left: 1.1rem; font-size: .82rem; color: var(--muted); }
+    .wf-detail-card li { margin-bottom: .3rem; }
+    .wf-table-wrap {
+      overflow-x: auto;
+      margin-top: 22px;
+      border: 1px solid var(--rule);
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--surface) 50%, transparent);
+    }
+    .wf-table-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .wf-table-wrap thead th {
+      background: color-mix(in srgb, var(--accent) 28%, var(--bg2));
+      color: var(--ink);
+      font-weight: 600;
+      padding: .6rem .8rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .wf-table-wrap tbody td {
+      padding: .55rem .8rem;
+      border-bottom: 1px solid var(--rule);
+      color: var(--muted);
+      vertical-align: top;
+    }
+    .wf-table-wrap tbody tr:nth-child(even) { background: color-mix(in srgb, var(--bg2) 40%, transparent); }
+    .wf-table-wrap tbody td strong { color: var(--ink); }
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .58s ease, transform .58s ease; }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
     @media (max-width: 980px) {
@@ -424,7 +568,7 @@
             <div class="eyebrow">AI Workflow</div>
             <h2>政策分析 AI 工作流</h2>
           </div>
-          <p>政策分析工作流涵盖准入判定、结构化抽取、主线研判、影响推演和输出校验五个核心环节。</p>
+          <p>政策分析工作流涵盖准入判定、结构化抽取、主线研判、影响推演和输出校验五个核心环节。以下为基于 COZE 平台设计的 5 阶段 12 Agent 全链路架构细化方案。</p>
         </div>
         <div class="process reveal">
           <div class="step"><div class="idx">01</div><h3>准入判定</h3><p>判断政策是否值得风电主机厂关注，降低无效信息噪声。</p></div>
@@ -432,6 +576,173 @@
           <div class="step"><div class="idx">03</div><h3>主线研判</h3><p>识别消纳、储能、电力市场、碳市场等政策主线。</p></div>
           <div class="step"><div class="idx">04</div><h3>影响推演</h3><p>从政策条款推导主体行为、成本变化和市场机会。</p></div>
           <div class="step"><div class="idx">05</div><h3>输出校验</h3><p>通过证据约束、人工复核和一致性检查控制幻觉风险。</p></div>
+        </div>
+
+        <div style="text-align:center">
+          <button class="collapsible-toggle" onclick="toggleWf(this)" aria-expanded="false" aria-controls="wf-detail">
+            展开全链路架构图（5 阶段 12 Agent）<span class="arrow">▼</span>
+          </button>
+        </div>
+        <div class="collapsible-body" id="wf-detail">
+          <div class="wf-diagram-wrap">
+            <pre class="mermaid">
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1a3a5c', 'primaryTextColor': '#f5f9ff', 'primaryBorderColor': '#38bdf8', 'lineColor': '#a8b8cc', 'secondaryColor': '#1a3d2e', 'tertiaryColor': '#3d2e1a', 'fontFamily': 'Instrument Sans, Microsoft YaHei, sans-serif'}}}%%
+flowchart TB
+
+  subgraph P1["Phase 1 · 数据接入与标准化"]
+    direction TB
+    P1_START(["启动"]) --> P1A["Agent 1a · 定时扫描"]
+    P1_START --> P1B["Agent 1b · 定向上传"]
+    P1A --> P1_CHK{三重校验}
+    P1B --> P1_CHK
+    P1_CHK --> P1_DEDUP["去重清洗 · OCR · 脱敏"]
+    P1_DEDUP --> P1_KEY{关键词匹配 70+ 词库}
+    P1_KEY -->|命中| P1_OUT["清洗后文本 → 分解模块"]
+    P1_KEY -.->|未命中| P1_DROP["丢弃 / 提示不相关"]
+  end
+
+  subgraph P2["Phase 2 · 结构化分解与语义分析"]
+    direction TB
+    P2_L1["Agent 2a · L1 元信息层"] --> P2_L2["Agent 2b · L2 框架层"]
+    P2_L2 --> P2_L3["Agent 2c · L3 要素层"]
+    P2_L3 --> P2_L4["Agent 2d · L4 要点层"]
+    P2_L4 --> P2_L5["Agent 2e · L5 属性层"]
+    P2_L5 --> P2_L6["Agent 2f · L6 关联层"]
+    P2_L6 --> P2_CHK{质量校验 3 步}
+    P2_CHK -->|通过| P2_OUT["结构化中间态"]
+    P2_CHK -.->|失败| P2_FIX["定位问题 · 补充替代方案"]
+    P2_FIX -.-> P2_CHK
+  end
+
+  subgraph P3["Phase 3 · 多维度综合研判（并行）"]
+    direction LR
+    P3_HIST["Agent 3a · 历史维度"] --> P3_AGG["研判结论聚合"]
+    P3_IMP["Agent 3b · 影响维度"] --> P3_AGG
+    P3_GAME["Agent 3c · 博弈维度"] --> P3_AGG
+    P3_REG["Agent 3d · 区域适配"] --> P3_AGG
+    P3_TECH["Agent 3e · 技术适配"] --> P3_AGG
+    P3_CLS["Agent 3f · 分类研判"] --> P3_AGG
+  end
+
+  P3_AGG --> P3_LOGIC{逻辑一致性校验}
+  P3_LOGIC -.->|冲突| P3_MANUAL["触发人工核查"]
+  P3_MANUAL -.-> P3_HIST
+  P3_LOGIC -->|通过| P3_OUT["深度分析报告"]
+
+  subgraph P4["Phase 4 · 标准化结果输出"]
+    direction TB
+    P4_MAP["15 核心字段映射"] --> P4_ENUM{枚举强校验}
+    P4_ENUM -->|通过| P4_JSON["标准化 JSON"]
+    P4_ENUM -.->|3次失败| P4_MR["人工复核队列"]
+    P4_MR -.-> P4_MR_ACT["人工复核修正"]
+    P4_MR_ACT -.-> P4_MAP
+    P4_JSON --> P4_R1["政策分析简报"]
+    P4_JSON --> P4_R2["行动要点清单"]
+    P4_JSON --> P4_R3["产业机会矩阵"]
+    P4_JSON --> P4_R4["博弈关系网络"]
+    P4_JSON --> P4_R5["风险预警摘要"]
+  end
+
+  subgraph P5["Phase 5 · AI 赋能实施路径"]
+    direction TB
+    P5_SEED["种子库构建"] --> P5_TRAIN["AI 模型训练"]
+    P5_TRAIN --> P5_MVP["MVP 验证期"] --> P5_SYS["业务系统对接"]
+    P5_SYS --> P5_ITER["持续迭代优化"]
+  end
+
+  P1_OUT --> P2
+  P2_OUT --> P3
+  P3_OUT --> P4
+  P4_JSON --> P5
+
+  P4_MR_ACT -.->|修正后回流| P2_L5
+  P3_MANUAL -.->|复核修正| P2_L6
+
+  classDef phaseBox fill:#1a3a5c,stroke:#38bdf8,stroke-width:2px,color:#f5f9ff
+  classDef agentBox fill:#1a3d2e,stroke:#22c55e,stroke-width:1.5px,color:#f5f9ff
+  classDef judge fill:#3d2e1a,stroke:#f59e0b,stroke-width:2px,color:#f5f9ff
+  classDef output fill:#2d1a4e,stroke:#a78bfa,stroke-width:1.5px,color:#f5f9ff
+  classDef drop fill:#1e293b,stroke:#475569,stroke-width:1px,color:#94a3b8,stroke-dasharray: 4 2
+
+  class P1,P2,P3,P4,P5 phaseBox
+  class P1A,P1B,P1_DEDUP,P2_L1,P2_L2,P2_L3,P2_L4,P2_L5,P2_L6,P3_HIST,P3_IMP,P3_GAME,P3_REG,P3_TECH,P3_CLS,P3_AGG,P4_MAP,P4_JSON,P4_R1,P4_R2,P4_R3,P4_R4,P4_R5,P5_SEED,P5_TRAIN,P5_MVP,P5_SYS,P5_ITER agentBox
+  class P1_CHK,P1_KEY,P2_CHK,P3_LOGIC,P4_ENUM judge
+  class P1_OUT,P2_OUT,P3_OUT output
+  class P1_DROP,P4_MR drop
+            </pre>
+          </div>
+
+          <div class="wf-detail-grid">
+            <div class="wf-detail-card">
+              <h4>时序关系</h4>
+              <ul>
+                <li>5 个 Phase 严格串行：数据接入 → 结构化分解 → 多维研判 → 标准化输出 → AI 赋能</li>
+                <li>Phase 2 内 L1→L6 递进串行，不可跳跃</li>
+                <li>Phase 3 的 6 个研判维度输入就绪后并行启动</li>
+              </ul>
+            </div>
+            <div class="wf-detail-card">
+              <h4>并发关系</h4>
+              <ul>
+                <li>Phase 1 中"定时扫描"与"定向上传"并行汇入校验节点</li>
+                <li>Phase 3 的 6 个 Agent 独立并行计算后聚合</li>
+                <li>Phase 4 中 5 份交付物由同一 JSON 并行生成</li>
+              </ul>
+            </div>
+            <div class="wf-detail-card">
+              <h4>回归关系</h4>
+              <ul>
+                <li>质量校验失败 → 定位问题 → 重新校验（Phase 2 内循环）</li>
+                <li>枚举校验 3 次失败 → 人工复核 → 回流字段映射（Phase 4）</li>
+                <li>逻辑一致性冲突 → 人工核查 → 回流结构化分解（Phase 3→2）</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="wf-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>校验节点</th>
+                  <th>校验内容</th>
+                  <th>通过路径</th>
+                  <th>失败处理</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>三重校验</strong></td>
+                  <td>标题 / 文号 / 正文内容去重</td>
+                  <td>进入去重清洗</td>
+                  <td>重复文件丢弃</td>
+                </tr>
+                <tr>
+                  <td><strong>关键词匹配</strong></td>
+                  <td>70+ 核心词库（碳达峰、海上风电、储能等）</td>
+                  <td>进入结构化分解</td>
+                  <td>丢弃或提示不相关</td>
+                </tr>
+                <tr>
+                  <td><strong>质量校验（3 步）</strong></td>
+                  <td>①原文匹配 ②层级归属准确 ③属性标注一致</td>
+                  <td>输出结构化中间态</td>
+                  <td>定位问题 → 补充替代方案 → 重新校验</td>
+                </tr>
+                <tr>
+                  <td><strong>逻辑一致性校验</strong></td>
+                  <td>跨模块字段约束校验</td>
+                  <td>进入标准化输出</td>
+                  <td>触发人工核查 → 修正后回流</td>
+                </tr>
+                <tr>
+                  <td><strong>枚举强校验</strong></td>
+                  <td>ENUM 字段归一化</td>
+                  <td>输出标准化 JSON</td>
+                  <td>重试 3 次 → 人工复核修正</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -493,5 +804,63 @@
 
   <script src="./assets/echarts.min.js"></script>
   <script src="./assets/sany-summary.js"></script>
+  <script src="./assets/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'base', securityLevel: 'loose', flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis', padding: 16 } });
+
+    (function() {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          var svg = document.querySelector('.wf-diagram-wrap svg');
+          if (svg) svg.addEventListener('click', openWfFullscreen);
+          var hint = document.createElement('span');
+          hint.className = 'wf-diagram-hint';
+          hint.textContent = '点击流程图可放大查看完整内容';
+          var wrap = document.querySelector('.wf-diagram-wrap');
+          if (wrap && svg) wrap.appendChild(hint);
+        }, 800);
+      });
+
+      window.openWfFullscreen = function() {
+        var svg = document.querySelector('.wf-diagram-wrap svg');
+        if (!svg) return;
+        var clone = svg.cloneNode(true);
+        var overlay = document.createElement('div');
+        overlay.className = 'wf-fullscreen-overlay active';
+        overlay.appendChild(clone);
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'wf-fullscreen-close';
+        closeBtn.textContent = '✕';
+        closeBtn.setAttribute('aria-label', '关闭放大视图');
+        closeBtn.addEventListener('click', closeWfFullscreen);
+        overlay.appendChild(closeBtn);
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) closeWfFullscreen();
+        });
+        document.addEventListener('keydown', handleEsc);
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+      };
+
+      function closeWfFullscreen() {
+        var overlay = document.querySelector('.wf-fullscreen-overlay');
+        if (overlay) overlay.remove();
+        document.removeEventListener('keydown', handleEsc);
+        document.body.style.overflow = '';
+      }
+
+      function handleEsc(e) {
+        if (e.key === 'Escape') closeWfFullscreen();
+      }
+    })();
+
+    function toggleWf(btn) {
+      var body = document.getElementById('wf-detail');
+      var isOpen = body.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', isOpen);
+      btn.firstChild.textContent = isOpen ? '收起全链路架构图（5 阶段 12 Agent）' : '展开全链路架构图（5 阶段 12 Agent）';
+    }
+  </script>
 </body>
 </html>
