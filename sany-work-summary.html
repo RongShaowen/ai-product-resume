@@ -1021,5 +1021,21 @@ flowchart TB
   }
 })();
 </script>
+<script>
+(function(){
+  /* 禁止右键查看源代码 */
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+  /* 禁止选中文字 */
+  document.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
+  /* 禁止 F12、Ctrl+U、Ctrl+Shift+I、Ctrl+S 等开发者快捷键 */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'S') || (e.metaKey && e.altKey && e.key === 'I') || (e.metaKey && e.altKey && e.key === 'J')) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  });
+})();
+</script>
 </body>
 </html>

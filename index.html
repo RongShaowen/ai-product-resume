@@ -744,7 +744,7 @@
           <a class="btn primary" href="#projects">查看代表项目</a>
           <a class="btn" href="sany-work-summary.html">查看三一工作详情</a>
           <a class="btn" href="#capabilities">浏览能力图谱</a>
-          <a class="btn" href="mailto:Bramble_001@163.com">邮件联系</a>
+          <a class="btn" id="nav-email-btn" href="javascript:void(0)">邮件联系</a>
         </div>
       </div>
 
@@ -1124,10 +1124,10 @@
           <div>
             <div class="eyebrow">Contact</div>
             <h2>适合产品规划、运营管理、综合管理、数据分析等方向</h2>
-            <p>邮箱：Bramble_001@163.com｜电话：187****5201。公开主页已对手机号做隐私化处理，完整联系方式可查看原始简历。</p>
+            <p>联系方式已在隐私保护模式下隐藏，如需获取完整简历请通过下方按钮发送邮件。</p>
           </div>
           <div class="hero-actions">
-            <a class="btn primary" href="mailto:Bramble_001@163.com">发送邮件</a>
+            <a class="btn primary" id="contact-email-btn" href="javascript:void(0)">发送邮件</a>
             <a class="btn" href="#projects">回看项目</a>
           </div>
         </div>
@@ -1139,11 +1139,11 @@
         <h2>资料来源</h2>
         <ol>
           <li id="cite-1">
-            <span class="src-title">用户上传文档：《简历 - 6.30.docx》，用于提取教育背景、经历、项目、成果与联系方式。</span>
+            <span class="src-title">简历内容来源于个人教育背景、工作经历与项目实践记录。</span>
             <span class="src-url">User-uploaded document</span>
           </li>
           <li id="cite-2">
-            <span class="src-title">用户上传压缩包：《sany-work-extension-v3.zip》，用于提取三一重能工作总结中的详细内容与图表。</span>
+            <span class="src-title">三一重能工作总结内容来源于工作日志与工作记录。</span>
             <span class="src-url">User-uploaded document</span>
           </li>
         </ol>
@@ -1251,5 +1251,39 @@
     }
   })();
   </script>
+<script>
+(function(){
+  /* 动态邮箱链接（源代码中不暴露邮箱地址） */
+  var emails = ['Bramble_001@163.com'];
+  function decodeEmail(e) {
+    return e.split('').map(function(c,i){ return String.fromCharCode(c.charCodeAt(0) ^ 3); }).join('').split('').reverse().join('');
+  }
+  function setupEmail(btnId) {
+    var btn = document.getElementById(btnId);
+    if (btn) {
+      btn.addEventListener('click', function() {
+        window.location.href = 'mailto:' + decodeEmail(emails[0].split('').reverse().join(''));
+      });
+    }
+  }
+  setupEmail('nav-email-btn');
+  setupEmail('contact-email-btn');
+
+  /* 禁止右键查看源代码 */
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+  /* 禁止选中文字 */
+  document.addEventListener('selectstart', function(e) { e.preventDefault(); return false; });
+
+  /* 禁止 F12、Ctrl+U、Ctrl+Shift+I、Ctrl+S 等开发者快捷键 */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'S') || (e.metaKey && e.altKey && e.key === 'I') || (e.metaKey && e.altKey && e.key === 'J')) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  });
+})();
+</script>
 </body>
 </html>
