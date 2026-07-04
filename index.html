@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>荣劭文｜AI 产品经理交互式简历</title>
+  <title>荣劭文｜个人简历</title>
 
   <style>
     @font-face {
@@ -615,6 +615,63 @@
       opacity: 1;
       transform: translateY(0);
     }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .reveal.float-in.is-visible {
+      animation: floatIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .hero h1 span {
+      background-size: 200% auto;
+      animation: shimmer 6s linear infinite;
+    }
+    /* Mouse glow follower — aurora effect */
+    .mouse-glow {
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle,
+        rgba(56,189,248,0.65) 0%,
+        rgba(34,197,94,0.40) 25%,
+        rgba(56,189,248,0.15) 50%,
+        rgba(34,197,94,0.05) 70%,
+        transparent 100%);
+      transform: translate(-50%, -50%);
+      transition: left 0.06s ease-out, top 0.06s ease-out;
+      will-change: left, top;
+    }
+    .mouse-glow-outer {
+      position: fixed;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle,
+        rgba(56,189,248,0.22) 0%,
+        rgba(34,197,94,0.10) 35%,
+        rgba(56,189,248,0.03) 60%,
+        transparent 80%);
+      transform: translate(-50%, -50%);
+      filter: blur(6px);
+      transition: left 0.10s ease-out, top 0.10s ease-out;
+      will-change: left, top;
+    }
+    /* Floating particles */
+    .particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+    }
     @media (max-width: 980px) {
       .hero,
       .section-head,
@@ -663,8 +720,8 @@
   <article class="page">
     <header id="home" class="hero">
       <div class="hero-copy reveal">
-        <div class="kicker"><span class="pulse"></span>AI Product Manager Portfolio</div>
-        <h1>荣劭文<span>AI 产品经理</span></h1>
+        <div class="kicker"><span class="pulse"></span>Product Planning & AI Portfolio</div>
+        <h1>荣劭文<span>产品规划与 AI 能力</span></h1>
         <p class="subtitle">从政策、数据与产业约束中提炼产品需求，用 Prompt Engineering、Python 封装与轻量 Agent 把复杂分析工作转化为可复用的 AI 产品能力。</p>
         <div class="hero-actions">
           <a class="btn primary" href="#projects">查看代表项目</a>
@@ -760,7 +817,7 @@
 
         <div class="grid cols-2" style="margin-top:18px">
           <figure class="chart-figure reveal">
-            <figcaption>能力雷达图：产业 AI 产品经理画像</figcaption>
+            <figcaption>能力雷达图：综合能力画像</figcaption>
             <div id="chart-capabilities" class="chart"></div>
           </figure>
           <div class="value-stack reveal">
@@ -826,7 +883,7 @@
             <div class="dot">25</div>
             <div class="time-card">
               <div class="period">2025.07 - 2026.04</div>
-              <h3>三一重能｜产品规划与 AI 产品实践</h3>
+              <h3>三一重能｜产品规划与 AI 实践</h3>
               <p>参与新能源政策研究、产品规划前期调研、需求定义、PRD 输出与跨部门协同，推动 AI 工具落地。</p>
             </div>
           </div>
@@ -864,7 +921,7 @@
             <h3>三一重能工作详情</h3>
             <div class="project-meta">
               <span class="tag">产品规划</span>
-              <span class="tag">AI 产品实践</span>
+              <span class="tag">AI 实践</span>
               <span class="tag">2025.07 - 2026.04</span>
             </div>
             <p>覆盖风机制造认知、高耗电行业与风电市场预测、能源消费预测建模、政策分析 SOP 与 AI 工作流、周报/月报/专题研究输出等六大并行工作主线。</p>
@@ -1037,7 +1094,7 @@
         <div class="contact-panel reveal">
           <div>
             <div class="eyebrow">Contact</div>
-            <h2>适合产业 AI、数据产品、Agent 产品、产品规划方向</h2>
+            <h2>适合产品规划、运营管理、综合管理、数据分析等方向</h2>
             <p>邮箱：Bramble_001@163.com｜电话：187****5201。公开主页已对手机号做隐私化处理，完整联系方式可查看原始简历。</p>
           </div>
           <div class="hero-actions">
@@ -1067,5 +1124,102 @@
 
   <script src="./assets/echarts.min.js"></script>
   <script src="./assets/charts.js"></script>
+
+  <div class="mouse-glow" id="mouseGlow"></div>
+<div class="mouse-glow-outer" id="mouseGlowOuter"></div>
+  <canvas class="particle-canvas" id="particleCanvas"></canvas>
+  <script>
+  (function(){
+    /* Mouse glow */
+    var glow = document.getElementById('mouseGlow');
+    var glowOuter = document.getElementById('mouseGlowOuter');
+    if (glow) {
+      document.addEventListener('mousemove', function(e) {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+        if (glowOuter) {
+          glowOuter.style.left = e.clientX + 'px';
+          glowOuter.style.top = e.clientY + 'px';
+        }
+      });
+    }
+
+    /* Particles */
+    var canvas = document.getElementById('particleCanvas');
+    if (canvas) {
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var count = 180;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function Particle() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.r = Math.random() * 1.5 + 0.5;
+        this.alpha = Math.random() * 0.4 + 0.1;
+      }
+
+      for (var i = 0; i < count; i++) particles.push(new Particle());
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(56, 189, 248, ' + p.alpha + ')';
+          ctx.fill();
+        }
+        /* Draw connections */
+        for (var i = 0; i < particles.length; i++) {
+          for (var j = i + 1; j < particles.length; j++) {
+            var dx = particles[i].x - particles[j].x;
+            var dy = particles[i].y - particles[j].y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 90) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = 'rgba(56, 189, 248, ' + (0.12 * (1 - dist / 90)) + ')';
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    /* Enhanced reveal with IntersectionObserver */
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      reveals.forEach(function(el) { observer.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('is-visible'); });
+    }
+  })();
+  </script>
 </body>
 </html>

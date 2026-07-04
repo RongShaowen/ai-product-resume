@@ -408,6 +408,18 @@
     .wf-table-wrap tbody td strong { color: var(--ink); }
     .reveal { opacity: 0; transform: translateY(18px); transition: opacity .58s ease, transform .58s ease; }
     .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .hero h1 span {
+      background-size: 200% auto;
+      animation: shimmer 6s linear infinite;
+    }
     @media (max-width: 980px) {
       .hero, .section-head, .cols-3, .cols-2, .process { grid-template-columns: 1fr; }
       .hero { min-height: auto; }
@@ -421,6 +433,47 @@
       .stats { grid-template-columns: 1fr; }
       h1 { font-size: clamp(3rem, 18vw, 5rem); }
       .chart { min-height: 330px; }
+    }
+    /* Mouse glow follower — aurora effect */
+    .mouse-glow {
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle,
+        rgba(56,189,248,0.65) 0%,
+        rgba(34,197,94,0.40) 25%,
+        rgba(56,189,248,0.15) 50%,
+        rgba(34,197,94,0.05) 70%,
+        transparent 100%);
+      transform: translate(-50%, -50%);
+      transition: left 0.06s ease-out, top 0.06s ease-out;
+      will-change: left, top;
+    }
+    .mouse-glow-outer {
+      position: fixed;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(circle,
+        rgba(56,189,248,0.22) 0%,
+        rgba(34,197,94,0.10) 35%,
+        rgba(56,189,248,0.03) 60%,
+        transparent 80%);
+      transform: translate(-50%, -50%);
+      filter: blur(6px);
+      transition: left 0.10s ease-out, top 0.10s ease-out;
+      will-change: left, top;
+    }
+    .particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -474,7 +527,7 @@
             <div class="eyebrow">Overview</div>
             <h2>主要工作方向</h2>
           </div>
-          <p>在三一重能产品规划与 AI 产品实践期间，重点围绕以下三个方向展开工作。</p>
+          <p>在三一重能产品规划与 AI 实践期间，重点围绕以下三个方向展开工作。</p>
         </div>
         <div class="grid cols-3">
           <article class="card reveal">
@@ -791,7 +844,7 @@ flowchart TB
           </article>
           <article class="card reveal">
             <h3>政策产品化</h3>
-            <p>将政策追踪拆解为准入、抽取、研判、推演、复核和报告输出链路，具备 AI 产品经理所需的流程设计与人机协同能力。</p>
+            <p>将政策追踪拆解为准入、抽取、研判、推演、复核和报告输出链路，具备产品化所需的流程设计与人机协同能力。</p>
           </article>
         </div>
       </section>
@@ -862,5 +915,88 @@ flowchart TB
       btn.firstChild.textContent = isOpen ? '收起全链路架构图（5 阶段 12 Agent）' : '展开全链路架构图（5 阶段 12 Agent）';
     }
   </script>
+<div class="mouse-glow" id="mouseGlow"></div>
+<div class="mouse-glow-outer" id="mouseGlowOuter"></div>
+<canvas class="particle-canvas" id="particleCanvas"></canvas>
+<script>
+(function(){
+  var glow = document.getElementById('mouseGlow');
+  var glowOuter = document.getElementById('mouseGlowOuter');
+  if (glow) {
+    document.addEventListener('mousemove', function(e) {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+      if (glowOuter) {
+        glowOuter.style.left = e.clientX + 'px';
+        glowOuter.style.top = e.clientY + 'px';
+      }
+    });
+  }
+  var canvas = document.getElementById('particleCanvas');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var count = 140;
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    function Particle() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.25;
+      this.vy = (Math.random() - 0.5) * 0.25;
+      this.r = Math.random() * 1.2 + 0.4;
+      this.alpha = Math.random() * 0.35 + 0.08;
+    }
+    for (var i = 0; i < count; i++) particles.push(new Particle());
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(56, 189, 248, ' + p.alpha + ')';
+        ctx.fill();
+      }
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var dx = particles[i].x - particles[j].x;
+          var dy = particles[i].y - particles[j].y;
+          var dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < 80) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = 'rgba(34, 197, 94, ' + (0.10 * (1 - dist / 80)) + ')';
+            ctx.lineWidth = 0.4;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('is-visible'); });
+  }
+})();
+</script>
 </body>
 </html>
